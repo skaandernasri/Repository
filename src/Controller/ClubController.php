@@ -39,7 +39,7 @@ class ClubController extends AbstractController
 
     }
     #[Route('/pas_de_participant/{Titre}', name:'redirect')]
-     public function button($Titre):Response{
+     public function redirection($Titre):Response{
         return $this->render('club/detail.html.twig', [
             'Titre'=>$Titre
         ]);
