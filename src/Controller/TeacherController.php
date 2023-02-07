@@ -21,7 +21,11 @@ class TeacherController extends AbstractController
     #[Route('/showTeacher/{name}', name: 'show_teachers')]
    public function showTeacher($name):Response
    {
-return new Response("bonjour ".$name);
+//return new Response("bonjour ".$name);
+
+return $this->render('teacher/showTeacher.html.twig', [
+    'newname'=>$name
+]);
    }
    #[Route('/redirect', name: 'redirect_teachers')]
    public function goToindex(){
