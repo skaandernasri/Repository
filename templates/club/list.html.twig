@@ -1,0 +1,74 @@
+<div class="example-wrapper">
+<table>
+<th>
+<tr>
+<td>
+ref
+</td>
+<td>
+Titre
+</td>
+<td>
+Description
+</td>
+<td>
+date_debut
+</td>
+<td>
+date_fin
+</td>
+<td>
+nb_participants
+</td>
+</tr>
+<th>
+{% for f in formations %}
+
+
+<tr>
+<td>
+{{f.ref}}
+</td>
+<td>
+
+{{f.Titre|upper}}
+
+</td>
+<td>
+{{f.Description}}
+</td>
+<td>
+{{f.date_debut}}
+</td>
+<td>
+{{f.date_fin}}
+</td>
+<td>
+{{f.nb_participants}}
+</td>
+{% if f.nb_participants == 0 %}
+
+<td>
+<button><a href="{{ path('redirect',{'Titre': f.Titre})}}"> button </a></button>
+</td>
+{% endif %}
+
+</tr>
+{% endfor %}
+
+</table>
+<h4>Nombre de formations: {{formations|length()}}</h4>
+<h4>Titre des formations: {{formations[0].Titre}}//{{formations[1].Titre}}//{{formations[2].Titre}}</h4>
+<h4>Titre de formation de plus grand nombre de participants: {% set Max=[formations[0].nb_participants,formations[1].nb_participants,formations[2].nb_participants] %}
+{% for i in formations %}
+{% if i.nb_participants == max(Max) %}
+{{i.Titre}}
+{% endif %} 
+{% endfor %}</h4>
+<h4>Nombre totale de participants dans les formations: 
+{% set nbt = 0 %}
+{% for i in formations %}
+{% set nbt =i.nb_participants + nbt %}
+{% endfor %}
+{{nbt}}</h4>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClubController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1> club's esprit </h1>
+    <p> la composition du texte en termes d'interlocution : c'est ainsi que selon Valentin Volochinov — un des tout premiers linguistes à avoir défini le paragraphe argumentatif — « les paragraphes sont analogues aux répliques d'un dialogue. Il s'agit  de dialogues affaiblis et transformés en énonciation monologue. À la base de la division du discours  en paragraphes  on trouve l'ajustement aux réactions prévues  du lecteur » ;
+le désir de l'auteur de mettre en avant un énoncé, et avec lui une idée ou une espèce  en particulier : il s'agit d'une forme d'inter-titrage subliminal. Pratiquement n'importe quelle phrase d'un texte peut être placée en tête de paragraphe, pour lui donner sa couleur et son orientation6. </p>    
+    <img src="{{asset('image.jpg')}}">
+   </div>
+{% endblock %}
