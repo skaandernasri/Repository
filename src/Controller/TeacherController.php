@@ -8,27 +8,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TeacherController extends AbstractController
 {
-    /**
- * @Route("/teacher/{name}",name="app_teacher")
- */
-    #[Route('/teacher/{name}', name: 'app_teachers')]
-    public function index(): Response   
-    {   
+    #[Route('/teacher', name: 'app_teacher')]
+    public function index(): Response
+    {
         return $this->render('teacher/index.html.twig', [
             'controller_name' => 'TeacherController',
         ]);
     }
-    #[Route('/showTeacher/{name}', name: 'show_teachers')]
-   public function showTeacher($name):Response
-   {
-//return new Response("bonjour ".$name);
 
-return $this->render('teacher/showTeacher.html.twig', [
-    'newname'=>$name
-]);
-   }
-   #[Route('/redirect', name: 'redirect_teachers')]
-   public function goToindex(){
-    return  $this->redirectToRoute('index');
-   }
+    #[Route('/showTeacher/{name}',name:'show_teacher')]
+    public function showTeacher($name) : Response {
+        return $this->render('showTeacher.html.twig',[
+            'name'=>$name
+        ]);
+    }
 }

@@ -8,41 +8,60 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ClubController extends AbstractController
 {
-  
-
     #[Route('/club', name: 'app_club')]
     public function index(): Response
     {
         return $this->render('club/index.html.twig', [
-            'controller_name' => 'ClubController',
+            'ecole' => 'ESPRIT',
         ]);
     }
 
-    #[Route('/club/get/{nom}', name: 'get_name')]
-    public function getName($nom):Response{
+    #[Route('/get/{name}', name: 'getName')]
+    public function getName($name): Response
+    {
         return $this->render('club/detail.html.twig', [
-            'nom'=>$nom,
+            'name' => $name,
         ]);
-    
     }
-    #[Route('/list', name: 'get_list')]
-    public function list(){
+
+    #[Route('/club/get/{name}', name: 'club_name')]
+    public function redirectToIndex($name): Response
+    {
+        return $this->redirectToRoute('app_club');
+    }
+
+    #[Route('/list', name: 'list')]
+    public function list(): Response
+    {
         $formations = array(
-            array('ref'=>'form147','Titre'=>'Formation symfony4','Description'=>'formation pratique','date_debut'=>'12/06/2020','date_fin'=>'19/06/2020    ','nb_participants'=>19),
-            array('ref'=>'form177','Titre'=>'Formation SOA','Description'=>'formation theorique','date_debut'=>'03/12/2020','date_fin'=>'10/12/2020    ','nb_participants'=>0),
-            array('ref'=>'form178','Titre'=>'Formation Angular','Description'=>'formation theorique','date_debut'=>'10/06/2020','date_fin'=>'14/06/2020    ','nb_participants'=>12 ),
-            
+            array(
+                'ref' => 'form147',
+                'Titre' => 'Formation Symfony4',
+                'Description' => 'formation pratique',
+                'date_debut' => '12/06/2020',
+                'date_fin' => '19/06/2020',
+                'nb_participants' => 19
+            ),
+            array(
+                'ref' => 'form177',
+                'Titre' => 'Formation SOA',
+                'Description' => 'formation theorique',
+                'date_debut' => '03/12/2020',
+                'date_fin' => '10/12/2020',
+                'nb_participants' => 0
+            ),
+            array(
+                'ref' => 'form178',
+                'Titre' => 'Formation Angular',
+                'Description' => 'formation theorique',
+                'date_debut' => '10/06/2020',
+                'date_fin' => '14/06/2020',
+                'nb_participants' => 12
+            )
         );
-        return $this->render('club/list.html.twig', [
-            'formations'=>$formations,
-        ]);
 
-    }
-    #[Route('/pas_de_participant/{Titre}', name:'redirect')]
-     public function redirection($Titre):Response{
-        return $this->render('club/detail.html.twig', [
-            'Titre'=>$Titre
+        return $this->render('club/list.html.twig', [
+            'formations' => $formations,
         ]);
     }
-    
 }

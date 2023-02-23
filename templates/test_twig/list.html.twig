@@ -1,0 +1,47 @@
+<table border="1">
+{% for f in tabFormations%}
+    {# {%if 'theorique' in f.Description%} #}
+    <tr>
+        <td>{{f.ref}}</td>
+        <td>{{f.Titre|upper}}</td>
+        <td>{{f.Description}}</td>
+        <td>{{f.date_debut}}</td>
+        <td>{{f.date_fin}}</td>
+        <td>{{f.nb_participants}}</td>
+        {%if f.nb_participants == 0%}
+        <td><a href="{{path('details',{'titre':f.Titre})}}">Participer</a>
+        {%endif%}
+    </tr>
+    {# {%endif%} #}
+   
+{%endfor%}
+</table>
+
+le nombre des formations : {{tabFormations|length}}
+
+{% set max=0 %}
+{% for f in tabFormations %}
+{% set max = max(f.nb_participants,max)%}
+{%endfor%}
+
+{{max}}
+
+{%for f in tabFormations%}
+{%if f.nb_participants== max%}
+<p>{{f.Titre}}</p>
+{%endif%}
+{% endfor %}
+
+{%set nb=0%}
+{%for f in tabFormations%}
+{%set nb=nb+f.nb_participants%}
+{%endfor%}
+
+Le nombre total de participants = {{nb}}
+
+{%if tabFormation is not defined%}
+Le tableau n'existe pas 
+{%endif%}
+{%if tabFormation is empty%}
+Le tableau est vide
+{%endif%}

@@ -1,0 +1,9 @@
+<table border="1">
+{% for c in classrooms %}
+</tr>
+    <td>{{c.id}}</td>
+    <td>{{c.name}}</td>
+</tr>
+{% endfor %}
+</table>
+<td><a href='{{path('app_classroom')}}'>retour</a></td>

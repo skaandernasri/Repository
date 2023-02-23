@@ -1,74 +1,102 @@
-<div class="example-wrapper">
-<table>
-<th>
-<tr>
-<td>
-ref
-</td>
-<td>
-Titre
-</td>
-<td>
-Description
-</td>
-<td>
-date_debut
-</td>
-<td>
-date_fin
-</td>
-<td>
-nb_participants
-</td>
-</tr>
-<th>
-{% for f in formations %}
-
-
-<tr>
-<td>
-{{f.ref}}
-</td>
-<td>
-
-{{f.Titre|upper}}
-
-</td>
-<td>
-{{f.Description}}
-</td>
-<td>
-{{f.date_debut}}
-</td>
-<td>
-{{f.date_fin}}
-</td>
-<td>
-{{f.nb_participants}}
-</td>
-{% if f.nb_participants == 0 %}
-
-<td>
-<button><a href="{{ path('redirect',{'Titre': f.Titre})}}"> participer </a></button>
-</td>
+{# 2 #}
+<strong>2 - liste des formations:</strong><br>
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		Ref: {{ formation.ref }}<br>
+		Titre: {{ formation.Titre }}<br>
+		Description: {{ formation.Description }}<br>
+		date_debut: {{ formation.date_debut }}<br>
+		Date_fin: {{ formation.date_fin }}<br>
+		nb_participants: {{ formation.nb_participants }}<br>
+		<br>
+	{% endfor %}
 {% endif %}
 
-</tr>
-{% endfor %}
+{# 3 #}
+<strong>3 - Titres en majuscules: </strong><br>
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		Titre: {{ formation.Titre  | upper }}<br>
+	{% endfor %}
+{% endif %}
+<br>
 
-</table>
-<h4>Nombre de formations: {{formations|length()}}</h4>
-<h4>Titre des formations: {{formations[0].Titre}}//{{formations[1].Titre}}//{{formations[2].Titre}}</h4>
-<h4>Titre de formation de plus grand nombre de participants: {% set Max=[formations[0].nb_participants,formations[1].nb_participants,formations[2].nb_participants] %}
-{% for i in formations %}
-{% if i.nb_participants == max(Max) %}
-{{i.Titre}}
-{% endif %} 
-{% endfor %}</h4>
-<h4>Nombre totale de participants dans les formations: 
-{% set nbt = 0 %}
-{% for i in formations %}
-{% set nbt =i.nb_participants + nbt %}
-{% endfor %}
-{{nbt}}</h4>
-</div>
+{# 4 #}
+<strong>4 - Nombre de formations: </strong><br>{{ formations | length }}<br><br>
+	
+{# 5 #}
+<strong>5 - Titres des formations théoriques: </strong><br>
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		{% if formation.Description == "formation theorique" %}
+			Titre formation théorique: {{ formation.Titre }}<br>
+		{% endif	%}
+	{% endfor %}
+{% endif %}
+<br>
+
+{# 6 #}
+{% set max = 0 %}
+{% set ref = '' %}
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		{% if formation.nb_participants > max %}
+			{% set max = formation.nb_participants %}
+			{% set ref = formation.ref %}
+		{% endif %}
+	{% endfor %}
+{% endif %}
+<strong>6 - La formation ayant le plus grand nombre de participants:</strong>
+<br>{{ ref }}<br><br>
+
+{# 7 #}
+<strong>7 - Le nombre total de participants:</strong><br>
+{% set total = 0 %}
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		{% set total = total + formation.nb_participants %}
+	{% endfor %}
+{% endif %}
+{{ total }}<br><br>
+
+{# 8- Ajouter une condition dans le cas où le tableau n’est pas défini et/ou vide #}
+
+{# 9 #}
+<strong>9 - Ajouter un bouton, participer, devant la formation ayant aucun participant:</strong><br>
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		{% if formation.nb_participants == 0 %}
+			Ref: {{ formation.ref }} <button>Participer</button>
+			<br>
+		{% else %}
+			Ref: {{ formation.ref }}<br>
+		{% endif %}
+		Titre: {{ formation.Titre }}<br>
+		Description: {{ formation.Description }}<br>
+		date_debut: {{ formation.date_debut }}<br>
+		Date_fin: {{ formation.date_fin }}<br>
+		nb_participants: {{ formation.nb_participants }}<br>
+		<br>
+	{% endfor %}
+{% endif %}
+
+
+{# 10 #}
+ <strong>10 - En cliquant sur le bouton « participer », l’utilisateur sera redirigé vers une nouvelle vue « detail.html.twig » affichant le nom de la formation sélectionnée.</strong><br> 
+{% if formations is not empty and formations is defined %}
+	{% for formation in formations %}
+		{% if formation.nb_participants == 0 %}
+			Ref: {{ formation.ref }} 
+			<button> <a href="{{ path('getName', {'name': formation.Titre }) }}">Participer</a></button>
+			<br>
+		{% else %}
+			Ref: {{ formation.ref }}<br>
+		{% endif %}
+		Titre: {{ formation.Titre }}<br>
+		Description: {{ formation.Description }}<br>
+		date_debut: {{ formation.date_debut }}<br>
+		Date_fin: {{ formation.date_fin }}<br>
+		nb_participants: {{ formation.nb_participants }}<br>
+		<br>
+	{% endfor %} 
+		{% endif %}
